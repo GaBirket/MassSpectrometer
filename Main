@@ -1,0 +1,53 @@
+GlowScript 2.7 VPython
+
+scene.center=vector(0,0,0)
+
+#set up graphs to plot the motion as functions of time
+#graph(title='<b>Electron in a Uniform Electric Field</b>', xtitle='<i>t(s)</i>',ytitle='<i>x,y(m)</i>')
+#rgraph=gcurve(color=color.red)
+#r2graph=gcurve(color=color.green)
+
+#define the objects
+U235=sphere(pos=vec(0,0,0), radius=0.001, color=color.blue, make_trail=True)
+U238=sphere(pos=vec(0,0,0), radius=0.001, color=color.red, make_trail=True)
+
+#create electric field vectors to visualize the field
+Earrow1=arrow(pos=vector(0,0,-0.0125), axis = vector(0.02,0,0), shaftwidth=0.0005, color=color.orange)
+Earrow2=arrow(pos=vector(0.01,0,-0.0125), axis = vector(0.02,0,0), shaftwidth=0.0005, color=color.orange)
+
+#Set constants
+q=1.6022e-19 #charge
+m235=235*1.6605e-27 #mass
+m238=238*1.6605e-27
+E=vec(4.418e5,0,0) #electric field
+
+
+v235=vec(0,0,0)
+v238=vec(2.122e4,0,0)
+
+p235=m235*v235 #create the momentum vector
+p238=m238*v238
+F=q*E #force
+t=0 #original time
+
+dt=1e-6 #time increment
+
+# The loop doesn't run until you click on the window.
+scene.waitfor("click")
+
+while U238<=0.1:
+    rate(5000)
+    
+#Graph the x and y positions and label the graph
+    #rgraph.plot(pos=(t,electron.pos.x))
+    #r2graph.plot(pos=(t,electron.pos.y)) 
+    
+#Do the physics! Applying the impulse-momentum theorem.
+    p235=p235+F*dt
+    p238=p238+F*dt
+    U235.pos=U235.pos+(p235/m235)*dt
+    U238.pos=U238.pos+(p238/m238)*dt
+    t=t+dt
+# Explain graphs and print final answer    
+#print("Vertical Position:Green and Horizontal Position:Red")
+#print("End Y Val: " + (electron.pos.y * 1000) + "mm")
